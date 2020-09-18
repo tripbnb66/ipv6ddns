@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	<div class="table-responsive">
+安裝步驟:<br>
+1. 安裝 centos7.5、 mysql、php7、nginx <br>
+2. 如果mysql沒有密碼，則可以執行 mysql -uroot < install/mysql.sql 會自動建立一個 ipv6ddns 資料庫<br>
+3. 如果mysql有密碼，請執行 mysql -uroot -p < install/mysql.sql  會出現提示訊息，請輸入你的密碼<br>
+4. 下載php程式碼之後，要安裝php環境請在程式碼目錄下執行 composer install<br>
+5. 裝好環境之後，可以執行 http://localhost/admin/  <br>
+6. 預設內建一個帳號，帳號為 admin 密碼為 w123456 <br>
+7. 登入之後，請記得更改密碼 <br>
+<hr>
+需要啟動排成(cron job)，定期更新Server的IP給Client使用。<br>
+執行方式為設定cron job，如果不知道何為cron job，請用Google搜尋 crontab。<br>
+0 * * * * /usr/bin/php /var/www/ddnsipv6/cron/update-ip.php 2>&1 > /dev/null
+<hr>
+操作步驟：<br>
+1. 先新增網域<br>
+2. 再新增主機(Hostname)<br>
+3. 最後才是新增API Key<br>
+</div>
+</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

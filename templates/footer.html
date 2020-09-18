@@ -1,0 +1,33 @@
+  	<footer id="footer1" class="footer1">
+      <div style="padding-top: 10px;">
+          <center>
+            <ul class="list-inline">
+              <li class="list-inline-item text-center p-2"><a href="/faq.php">{% trans "FAQ" %}</a></li>
+              <li class="list-inline-item text-center p-2"><a href="/tos.php">{% trans "Terms of Users" %}</a></li>
+            </ul>
+          </center>
+      </div>
+    
+  </footer>
+<script>
+  $(document).ready(function() {
+   var docHeight = $(window).height();
+   var footerHeight = $('#footer1').height();
+   var footerTop = $('#footer1').position().top + footerHeight;
+   if (footerTop < docHeight) {
+    $('.footer1').css('margin-top', (docHeight - footerTop) + 'px');
+   }
+  });
+
+  function footer(i){
+    if ( i == 1)
+      var docHeight = $(document).height();
+    else 
+      var docHeight = $(window).height();
+    var footerHeight = $('#footer1').height();
+    var footerTop = $('#footer1').position().top + footerHeight;
+    if (footerTop < docHeight) {
+      $('.footer1').css('margin-top', (docHeight - footerTop) + 'px');
+    }
+  }
+</script>

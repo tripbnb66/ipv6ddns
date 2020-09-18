@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid all-login-area">
+<div class="row justify-content-md-center">
+	<div class	="col-4 login-area" style="padding-top: 0;padding-left: 0;padding-right: 0;">
+		<div style="padding: 10px 15px 5px 10px;border-top-left-radius: 10px;border-top-right-radius: 10px;background: #4a9afb;">
+			<a href="/"><img src="/image/LOGO-footer.png" class="login-title" style="height:40px;"></a>
+			<h4 style="display: inline-block;margin:0;padding: 0;color:#FFF;vertical-align: middle;"> &nbsp;{% trans "Customer sign in" %}</h4>
+		</div>
+		<form method="post" action="login1.php" style="padding:20px;text-align: center;">
+			<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+			{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+				<div class="form-group">
+					<input type="text" class="form-control input-section" id="email" placeholder="{% trans "Please enter Email" %}" name="email" required>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control input-section" id="pw" placeholder="{% trans "Please enter password" %}" name="pw" required>
+				</div>
+				<div class="login-btn-area">
+					<button class="login-btn input-section btn btn-primary" type="submit">{% trans "Sign in" %}</button>
+				</div>
+				<div class="forget-password">
+					<a href="forgot_password.php" class="login-area-text ">{% trans "Forget password?" %}</a>
+				</div>
+				<hr class="login-line">
+				<div class="login-area-text login-forget">{% trans "No registered account？" %}
+					<a href="signup.php" class="login-area-link">{% trans "Sign up" %}</a>
+				</div>
+				<div class="login-area-text login-forget">{% trans "Is the account not activated yet？" %}
+					<a href="verify_email.php" class="login-area-link">{% trans "Enter enable code" %}</a>
+				</div>
+				<div class="login-area-text login-forget">{% trans "Didn't receive the activation code？" %}
+					<a href="resend_verify_email.php" class="login-area-link">{% trans "Resend activation code" %}</a>
+				</div>
+			</div>
+			{% if redirect is not empty %}
+			<input type="hidden" name="redirect" value="{{redirect}}">
+			{% endif %}
+		</form>
+	</div>
+</div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base-block.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}<br>
+<div class="container-fluid">
+{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

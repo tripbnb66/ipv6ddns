@@ -1,0 +1,7 @@
+{
+    "require": {
+        "gettext/gettext": "^5.5",
+        "phpmyadmin/twig-i18n-extension": "^3.0",
+        "twig/twig": "^2.5"
+    }
+}

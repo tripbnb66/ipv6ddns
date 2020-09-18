@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+	{% block meta %}
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, ,minimum-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>{{title}}</title>
+      <link href="/favicon.ico" rel="shortcut icon">
+      <link href="/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/booking-room.css?v={{t}}" rel="stylesheet">
+ 	  <link href="/css/sb-admin-2.css?v={{t}}" rel="stylesheet">
+      <link href="/css/all.min.css" rel="stylesheet">
+	  <script src="/js/jquery-3.4.1.min.js"></script>
+ 		<link href="/css/flatpickr.min.css" rel="stylesheet">
+ 		<script src="/js/flatpickr.min.js"></script>
+      <link href="/css/document.css?v={{t}}" rel="stylesheet">
+      <link href="/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  {% endblock %}
+  </head>
+<body class="bg-light">
+  	{% block nav %}
+  	{% if com.is_user == 1 %}
+<nav class="navbar navbar-light bg-white flex-column flex-md-row justify-content-center justify-content-md-between">
+    <a class="navbar-brand" href="/">
+      <img src="/image/nav-logo.png" alt="{{title}}">
+    </a>
+
+    <div class="nav-profile d-none d-md-flex align-items-center">
+    </div>
+</nav>
+
+  <!-- sidebar menu (end) -->
+    {% else %}
+<nav class="navbar navbar-light bg-white flex-column flex-md-row justify-content-center justify-content-md-between">
+    <a class="navbar-brand" href="index.php">
+      <img src="/image/LOGO-header.png" alt="{{title}}">
+    </a>
+
+    <div class="nav-profile d-none d-md-flex align-items-center">
+    </div>
+ </nav>
+
+    {% endif %}
+    {% endblock %}
+
+    {% block main %}
+    {% endblock %}
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/daterangepicker.min.js"></script>
+  <script src="/js/sb-admin-2.min.js"></script>
+
+    {% block footer %}
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block head %}
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, ,minimum-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>{{title}}</title>
+      <link href="/favicon.ico" rel="shortcut icon">
+      <link href="/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/booking-room.css?v={{t}}" rel="stylesheet">
+ 	  <link href="/css/sb-admin-2.css?v={{t}}" rel="stylesheet">
+      <link href="/css/all.min.css" rel="stylesheet">
+	  <script src="/js/jquery-3.4.1.min.js"></script>
+ 		<link href="/css/flatpickr.min.css" rel="stylesheet">
+ 		<script src="/js/flatpickr.min.js"></script>
+      <link href="/css/document.css?v={{t}}" rel="stylesheet">
+      <link href="/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/style.css?t={{t}}" rel="stylesheet" type="text/css">
+   {% endblock %}
+</head>
+
+<body id="bg-light">
+  	{% block nav %}
+<nav class="navbar navbar-light bg-white flex-column flex-md-row justify-content-center justify-content-md-between">
+    <a class="navbar-brand" href="index.php">
+      <img src="/image/LOGO-header.png">
+    </a>
+    {% if is_admin %}
+      <a href="logout.php">{% trans "登出" %}</a><img src="/image/logout.png" width="20px"></a>
+      {% else %}
+      <a href="login.php">{% trans "登入" %}<img src="/image/login.png" width="20px"></a>
+      {% endif %}
+    </div>
+  </nav>
+    {% endblock %}
+
+<div id="wrapper">
+{% if is_admin %}
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu1" aria-expanded="true" aria-controls="menu1">
+          <span>{% trans "網域" %}</span>
+        </a>
+        <div id="menu1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a id="menu1a" class="collapse-item" href="domain-add.php">{% trans "新增網域" %}</a>
+          	<a id="menu1b" class="collapse-item" href="domain-list.php">{% trans "網域列表" %}</a>
+          </div>
+        </div>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu2" aria-expanded="true" aria-controls="menu2">
+          <span>{% trans "主機" %}</span>
+        </a>
+        <div id="menu2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a id="menu2a" class="collapse-item" href="hostname-add.php">{% trans "新增主機" %}</a>
+          	<a id="menu2b" class="collapse-item" href="hostname-list.php">{% trans "主機列表" %}</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu3" aria-expanded="true" aria-controls="menu3">
+          <span>{% trans "金鑰" %}</span>
+        </a>
+        <div id="menu3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a id="menu3a" class="collapse-item" href="apikey-add.php">{% trans "新增API金鑰" %}</a>
+          	<a id="menu3b" class="collapse-item" href="apikey-list.php">{% trans "API金鑰列表" %}</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu4" aria-expanded="true" aria-controls="menu4">
+          <span>{% trans "其他" %}</span>
+        </a>
+        <div id="menu4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a id="menu4a" class="collapse-item" href="profile.php">{% trans "變更密碼" %}</a>
+          	<a id="menu4b" class="collapse-item" href="help-server.php">{% trans "使用說明" %}</a>
+          </div>
+        </div>
+      </li>    
+
+    </ul>
+    <!-- End of Sidebar -->
+       {% endif %}
+        <!-- Begin Page Content -->
+        <div class="container-fluid table-responsive">
+          <!-- Content Row -->
+          {% block main %}
+		  {% endblock %}
+        </div>
+        <!-- /.container-fluid -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+{% include 'footer-thin.html' only %} 
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/daterangepicker.min.js"></script>
+  <script src="/js/sb-admin-2.min.js"></script>
+<script type="text/javascript">
+$(function() {
+  {% if menu is not empty %}
+  $("#{{menu}}").addClass('show');
+  {% endif %}
+  {% if menu_item is not empty %}
+  $("#{{menu_item}}").addClass("active");
+  {% endif %}
+});
+
+</script>
+</body>
+</html>

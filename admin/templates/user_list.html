@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	<div class="table-responsive">
+	<table class="table table-striped">
+		<tr>
+			<td>{% trans "電子郵件" %}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		{% for item in items %}
+		<tr>
+			<td>{{item.email}}</td>
+			<td><a href="user_update.php?id={{item.id}}">{% trans "修改" %}</a></td>
+			<td><a href="user_delete.php?id={{item.id}}" onclick="return confirm('確定刪除？')">{% trans "刪除" %}</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	{{pagnation|raw}}
+</div>
+</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

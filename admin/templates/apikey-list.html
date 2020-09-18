@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	<div class="table-responsive">
+		<p>
+			以下是您新增的API金鑰的列表，如果您有些金鑰已經不再使用，請記得務必利用右側的刪除功能。<br>
+			另外，為了確保您的平台安全，請不要將這些金鑰張貼在討論區、網站或者臉書跟社團內，避免有心人士濫用您的資源，造成您的損失。<br>
+		</p>
+	<table class="table table-striped">
+		<tr>
+			<td>{% trans "API Key" %}</td>
+			<td></td>
+		</tr>
+		{% for item in items %}
+		<tr>
+			<td>{{item.apikey}}</td>
+			<td><a href="domain-delete.php?id={{item.id}}" onclick="return confirm('確定刪除？')">{% trans "刪除" %}</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	{{pagnation|raw}}
+</div>
+</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

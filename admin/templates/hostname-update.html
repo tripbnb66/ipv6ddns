@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	<form method="post" action="hostname-update1.php">
+		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+		<input type="hidden" name="id" value="{{id}}">
+
+		{% if ip.data_type=="ipv4" %}
+		<input type="hidden" name="type" value="ipv4">
+		<input type="hidden" name="priority" value="0">
+		<div class="row form-group">
+			<label class="col-12">{% trans "主機名稱" %} : {{ip['hostname']}} </label>
+		</div>
+		<div class="row form-group">
+			<label class="col-12">{% trans "網域" %} : {{ip['domain']}}</label>
+		</div>	
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "IPv4位址" %}</label>
+			<input type="text" class="col-10 form-control" name="ipv4" value="{{ip['name']}}" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "Server使用" %}</label>
+			<label><input type="checkbox" name="is_local" value="1" {%if is_local %}checked{%endif%}> {% trans "如果此主機是提供給Client端連線使用，則請打勾。如果不知道用途，請不要打勾。" %}</label>
+		</div>
+		{% elseif ip.data_type =="ipv6" %}
+		<input type="hidden" name="type" value="ipv6">
+		<input type="hidden" name="priority" value="0">
+		<div class="row form-group">
+			<label class="col-12">{% trans "主機名稱" %} : {{ip['hostname']}} </label>
+		</div>
+		<div class="row form-group">
+			<label class="col-12">{% trans "網域" %} : {{ip['domain']}}</label>
+		</div>	
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "IPv6位址" %}</label>
+			<input type="text" class="col-10 form-control" name="ipv6" value="{{ip['name']}}" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "Server使用" %}</label>
+			<label><input type="checkbox" name="is_local" value="1" {%if is_local %}checked{%endif%}> {% trans "如果此主機是提供給Client端連線使用，則請打勾。如果不知道用途，請不要打勾。" %}</label>
+		</div>
+		{% elseif ip.data_type == "cname" %}
+		<input type="hidden" name="type" value="cname">
+		<input type="hidden" name="mx_priority" value="0">
+		<div class="row form-group">
+			<label class="col-12"><font color=red>*</font>{% trans "主機名稱" %} : {{ip['hostname']}} </label>
+		</div>
+		<div class="row form-group">
+			<label class="col-12"><font color=red>*</font>{% trans "網域" %} : {{ip['domain']}}</label>
+		</div>	
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "指向" %}</label>
+			<input type="text" class="col-10 form-control" name="cname" value="{{ip['name']}}" required>
+		</div>
+		{% elseif ip.data_type == "txt" %}
+		<input type="hidden" name="type" value="TXT">
+		<input type="hidden" name="mx_priority" value="0">
+		<div class="row form-group">
+			<label class="col-12"><font color=red>*</font>{% trans "主機名稱" %} : {{ip['hostname']}} </label>
+		</div>
+		<div class="row form-group">
+			<label class="col-12"><font color=red>*</font>{% trans "網域" %} : {{ip['domain']}}</label>
+		</div>	
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "TXT值" %}</label>
+			<input type="text" class="col-10 form-control" name="txt" value="{{ip['name']}}" required>
+		</div>
+		{% elseif ip.data_type == "MX" %}
+		<input type="hidden" name="type" value="MX">
+		<div class="row form-group">
+			<label class="col-12"><font color=red>*</font>{% trans "主機名稱" %} : {{ip['hostname']}} </label>
+		</div>
+		<div class="row form-group">
+			<label class="col-12"><font color=red>*</font>{% trans "網域" %} : {{ip['domain']}}</label>
+		</div>	
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "MX" %}</label>
+			<input type="text" class="col-10 form-control" name="MX" value="{{ip['name']}}" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "優先順序" %}</label>
+			<input type="text" class="col-10 form-control" name="mx_priority" value="{{ip['mx_priority']}}" required>
+		</div>
+		{% endif %}
+		<input type="submit" value="{% trans "修改" %}" class="btn btn-primary btn-sm"> &nbsp;
+		<input type="reset" value="{% trans "取消" %}" class="btn btn-secondary btn-sm"> &nbsp;
+	</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

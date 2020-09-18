@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	<form method="post" action="user_update1.php">
+		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+		<input type="hidden" name="id" value="{{items[0].id}}">
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "電子郵件" %}</label>
+			<span class="col-10">{{items[0].email}}</span>
+		</div>
+		<div class="row form-group">
+			<label class="col-12">{% trans "如果密碼不更換，請保留空白" %}<br>
+			{% trans "密碼必須為 6 到 20 個數字或字元，至少要包含 1 個數字跟1個字元" %}</label>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "密碼" %}</label>
+			<td><input type="password" name="pw1" class="form-control col-10"></td>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "確認密碼" %}</label>
+			<td><input type="password" name="pw2" class="form-control col-10"></td>
+		</div>
+		<input type="submit" class="btn btn-primary btn-sm" value="{% trans "送出" %}"> &nbsp;
+		<input type="reset" class="btn btn-secondary btn-sm" value="{% trans '取消'%}">
+</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base-index.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+
+
+    	<form name="form1" class="form" method="post" action="search.php">
+    		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+ 
+</form>
+
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

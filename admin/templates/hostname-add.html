@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+		<p>
+			所謂的主機(Hostname)通常是指網域內某台主機，通常都會對應到一個位址。<br>
+			舉例，如果您有一個網域為 ipv6test.ml，此時您要架設一個網站，依照慣例，我們通常都會把網站的主機名稱取名為 www，因此主機名稱搭配網域組合起來就是 www.ipv6test.ml<br>
+			故，依據上面的舉例，您在這裡輸入的主機名稱就是www<br>
+			如果你要架設一台檔案上傳的站，依據慣例，您可能取名為 ftp，因此主機名稱就是輸入ftp，搭配網域 ipv6test.ml時，這台主機的完整名稱就會變成 ftp.ipv6test.ml<br>
+			網頁內有幾個專有名詞說明如下：<br>
+			NS：查詢管理領域名稱 (zone) 的伺服器主機名<br>
+			PTR：反解，查詢 IP 所對應的主機名稱<br>
+			SOA：查詢管理領域名稱的伺服器管理資訊<br>
+			A：是指IPv4的位址<br>
+			AAAA：是指IPv6的位址<br>
+			CNAME：依據Wiki的說明，CNAME真實名稱記錄（英語：Canonical Name Record），即CNAME記錄，是域名系統（DNS）的一種記錄。 CNAME記錄用於將一個域名（同名）映射到另一個域名（真實名稱），域名解析伺服器遇到CNAME記錄會以映射到的目標重新開始查詢。 這對於需要在同一個IP位址上運行多個服務的情況來說非常方便。<br>
+			TXT：文字記錄，依據Wiki的說明，最初是為任意可讀的文字 DNS 記錄，後來通常存放一些驗證用的資訊。<br>
+			MX：依據Wiki的說明，郵件交換記錄 (MX record)是域名系統（DNS）中的一種資源記錄類型，用於指定負責處理發往收件人域名的郵件伺服器。MX記錄允許設定一個優先次序，當多個郵件伺服器可用時，會根據該值決定投遞郵件的伺服器。簡單郵件傳輸協定（SMTP）會根據MX記錄的值來決定郵件的路由過程。<br>
+			Server使用：由於Client連到Server需要知道連到哪一台主機，因此我們需要先指定Server主機為哪一台，之後才交給Client連線使用。<br>
+		</p>
+			<form method="post" action="hostname-add1.php">
+		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "網域" %}</label>
+			<select name='domain_id'>
+			{% for item in domains %}
+			<option value="{{item.id}}" required>{{item.domain}}</option>
+			{% endfor %}
+			</select>
+		</div>
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "類型" %}</label>
+			<div class="col-10">
+				<div class="row">
+				<label class="col-2"><input type="radio" name="type" value="A" {% if type == "A" %}checked{% endif %} onclick="window.location='hostname-add.php?type=A'">A</label> 
+				
+				<label class="col-2"><input type="radio" name="type" value="AAAA" {% if type == "AAAA" %}checked{% endif %} onclick="window.location='hostname-add.php?type=AAAA'">AAAA</label> 
+				<label class="col-2"><input type="radio" name="type" value="CNAME" {% if type == "CNAME" %}checked{% endif %} onclick="window.location='hostname-add.php?type=CNAME'">CNAME</label> 
+				
+				<label class="col-2"><input type="radio" name="type" value="TXT" {% if type == "TXT" %}checked{% endif %} onclick="window.location='hostname-add.php?type=TXT'">TXT</label> 
+				
+				<label class="col-2"><input type="radio" name="type" value="MX" {% if type == "MX" %}checked{% endif %} onclick="window.location='hostname-add.php?type=MX'">MX</label> 
+
+				<label class="col-2"><input type="radio" name="type" value="NS" {% if type == "NS" %}checked{% endif %} onclick="window.location='hostname-add.php?type=NS'">NS</label>
+				
+				
+				<label class="col-2"><input type="radio" name="type" value="SOA" {% if type == "SOA" %}checked{% endif %} onclick="window.location='hostname-add.php?type=SOA'">SOA</label> 
+				
+				<label class="col-2"><input type="radio" name="type" value="PTR" {% if type == "PTR" %}checked{% endif %} onclick="window.location='hostname-add.php?type=PTR'">PTR</label>  
+			</div>
+		</div>
+		</div>
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "主機名稱(不包括網域)" %}</label>
+			<input type="text" class="col-10 form-control" name="hostname" required>
+		</div>
+		{% if type == "A" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "IP位址(A)" %}</label>
+			<input type="text" class="col-10 form-control" name="A" value="{{A}}" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "Server使用" %}</label>
+			<label><input type="checkbox" name="is_local" value="1"> {% trans "如果此主機是提供給Client端連線使用，則請打勾。如果不知道用途，請不要打勾。" %}</label>
+		</div>
+		{% elseif type == "AAAA" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "IP位址(AAAA)" %}</label>
+			<input type="text" class="col-10 form-control" name="AAAA" value="{{AAAA}}" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "Server使用" %}</label>
+			<label><input type="checkbox" name="is_local" value="1"> {% trans "如果此主機是提供給Client端連線使用，則請打勾。如果不知道用途，請不要打勾。" %}</label>
+		</div>
+		{% elseif type == "CNAME" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "指向" %}</label>
+			<input type="text" class="col-10 form-control" name="CNAME" required>
+		</div>
+		{% elseif type == "NS" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "指向" %}</label>
+			<input type="text" class="col-10 form-control" name="NS" required>
+		</div>
+		{% elseif type == "PTR" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "指向" %}</label>
+			<input type="text" class="col-10 form-control" name="PTR" required>
+		</div>
+		{% elseif type == "SOA" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "指向" %}</label>
+			<input type="text" class="col-10 form-control" name="SOA" required>
+		</div>
+		{% elseif type == "TXT" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "TXT值" %}</label>
+			<input type="text" class="col-10 form-control" name="TXT" required>
+		</div>
+		{% elseif type == "MX" %}
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "MX" %}</label>
+			<input type="text" class="col-10 form-control" name="MX" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "優先順序" %}</label>
+			<input type="text" class="col-10 form-control" name="mx_priority" required>
+		</div>
+		{% endif %}
+		<input type="submit" value="{% trans "新增" %}" class="btn btn-primary btn-sm"> &nbsp;
+		<input type="reset" value="{% trans "取消" %}" class="btn btn-secondary btn-sm"> &nbsp;
+	</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

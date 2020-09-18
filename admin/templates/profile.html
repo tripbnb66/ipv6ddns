@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	( <font color="red">*</font> {% trans "必填欄位" %})
+	<form method="post" action="profile1.php">
+		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "Email" %}</label>
+			<input type="text" class="col-10 form-control" name="email" value="{{item.email}}" required>
+		</div>
+		<div class="row form-group">
+			<label class="col-2">{% trans "密碼" %}</label>
+			<input type="password" class="col-10 form-control" name="pw" placeholder="{% trans "密碼必須包含1個數字跟1個字元,長度大於6" %}" title="{% trans "密碼必須包含1個數字跟1個字元,長度大於6" %}">
+		</div>
+		<div class="form-group">
+			<span class="col-2"> </span>
+			<label class="col-10">{% trans "如果不更改，請保留空白" %}<br>{% trans "密碼必須為 6 到 20 個數字或字元，至少要包含 1 個數字跟1個字元" %}</label>
+		</div>
+		<input type="submit" value="{% trans "送出" %}" class="btn btn-primary btn-sm"> &nbsp;
+		<input type="reset" value="{% trans "重設" %}" class="btn btn-secondary btn-sm"> &nbsp;
+	</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

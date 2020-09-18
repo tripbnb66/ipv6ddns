@@ -1,0 +1,50 @@
+
+	root  /var/www/ddnsipv6;
+	set $fastcgi_backend "127.0.0.1:9000";
+#set $fastcgi_backend unix:/var/run/php-fpm/www.sock;
+	client_max_body_size 80M;
+	charset utf-8;
+	gzip on;
+	gzip_disable "msie6";
+	server_tokens off;
+
+	fastcgi_buffer_size 128k;
+	fastcgi_buffers 4 256k;
+	fastcgi_busy_buffers_size 256k;
+
+	gzip_vary on;
+	gzip_proxied any;
+	gzip_comp_level 6;
+	gzip_http_version 1.1;
+	gzip_min_length 256;
+	gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
+
+	index index.php index.html index.htm;
+	if ($request_uri ~ 'favicon') {
+		return 404;
+	}
+
+	location ~/cron/(.*) {
+		deny all;
+	}
+	location ~/install/(.*) {
+		deny all;
+	}
+	location / {
+		try_files $uri $uri/ /index.php?$args  =404;
+	}
+error_page 404 /40x.html;
+    error_page 500 502 503 504 /50x.html;
+	location ~ \.php$ {
+		try_files $uri =404;	
+		fastcgi_pass $fastcgi_backend;
+		fastcgi_index  index.php;
+		fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi_params;
+	}
+
+	client_body_timeout 5s;
+	client_header_timeout 5s;
+
+
+

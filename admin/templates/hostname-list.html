@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+	<div class="table-responsive">
+		<p>
+			以下是您建立的主機列表，還有對應的記錄資訊。<br>
+			您如果要修改或者刪除，請依據本頁面右側的功能進行操作。<br>
+		</p>
+	<table class="table table-striped">
+		<tr>
+			<td>{% trans "主機" %}</td>
+			<td>{% trans "網域" %}</td>
+			<td>{% trans "值" %}</td>
+			<td>{% trans "類型" %}</td>
+			<td>{% trans "優先順序" %}</td>
+			<td>{% trans "Server用" %}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		{% for item in items %}
+		<tr>
+			<td>{{item.hostname}}</td>
+			<td>{{item.domain}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.data_type|upper}}</td>
+			<td>{{item.priority}}</td>
+			<td>{% if item.is_local == 1 %}是{% else %}{% endif %}</td>
+			<td><a href="hostname-update.php?id={{item.id}}">{% trans "修改" %}</a></td>
+			<td><a href="hostname-delete.php?id={{item.id}}" onclick="return confirm('確定刪除？')">{% trans "刪除" %}</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	{{pagnation|raw}}
+</div>
+</form>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' only %} 
+{% endblock %}

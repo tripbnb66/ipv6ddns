@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid">
+	{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+<div class="row">
+	{% trans "沒有權限" %}
+</div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ parent() }}
+{% endblock %}

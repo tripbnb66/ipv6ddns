@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block meta %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block main %}
+{{ parent() }}
+<div class="container-fluid all-login-area">
+<div class="row justify-content-md-center">
+	<div class="col-4 login-area" style="padding-top: 0;padding-left: 0;padding-right: 0;">
+		<div style="padding: 10px 15px 5px 10px;border-top-left-radius: 10px;border-top-right-radius: 10px;background: #4a9afb;">
+			<a href="/"><img src="/image/LOGO-footer.png" class="login-title" style="height:40px;"></a>
+			<h4 style="display: inline-block;margin:0;padding: 0;color:#FFF;vertical-align: middle;"> &nbsp;{% trans "User sign up" %}</h4>
+		</div>
+	
+		<form method="POST" action="/signup1.php" style="padding:20px;text-align: center;">
+			<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+			{% if message is not empty %}
+	<div class="alert alert-danger" role="alert">{{ message }}</div>
+	{% endif %}
+			<div class="form-group">
+				<div class="form-group">
+					<input type="text" class="form-control input-section" id="email" placeholder="{% trans "Email" %}" name="email" value="{{email}}" required>
+				</div>
+
+				<div class="form-group">
+					<input type="password" class="form-control input-section" id="pw" placeholder="{% trans "Password must contain 1 digit 1 letter and minimum 6 characters" %}" title="{% trans "Password must contain 1 digit 1 letter and minimum 6 characters" %}" name="pw" required>
+				</div>
+
+				<div class="form-group">
+					<input type="password" class="form-control input-section" id="pw2" placeholder="{% trans "Password confirm" %}" name="pw2" required>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control input-section" id="firstname" placeholder="{% trans "firstname" %}" name="firstname" value="{{firstname}}" required>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control input-section" id="lastname" placeholder="{% trans "lastname" %}" name="lastname" value="{{lastname}}" required>
+				</div>
+					<div class="login-btn-area">
+						<button class="login-btn input-section btn btn-primary" type="submit">{% trans "Sign up" %}</button>
+					</div>
+					<hr class="login-line">
+					<div class="login-area-text login-forget">{% trans "Already have an account？" %}
+						<a href="/login.php" class="login-area-link">{% trans "Sign in" %}</a>
+					</div>
+					<div class="login-area-text login-forget">{% trans "Is the account not activated yet？" %}
+						<a href="/verify_email.php" class="login-area-link">{% trans "Enter enable code" %}</a>
+					</div>
+					<div class="login-area-text login-forget">{% trans "Didn't receive the activation code？" %}
+						<a href="/resend_verify_email.php" class="login-area-link">{% trans "Resend activation code" %}</a>
+					</div>
+				</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'footer-thin.html' only %} 
+{% endblock %}
