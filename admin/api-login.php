@@ -40,7 +40,7 @@ try {
     $st->execute();
     $rows = $st->fetchAll(PDO::FETCH_ASSOC);
     if ($rows[0]['n'] == 1) {
-        $sql = "select h.id,d.domain,h.hostname,i.name,i.data_type,i.priority,i.is_local from domain as d join hostname as h on h.domain_id=d.id join ip as i on i.hostname_id=h.id where is_local is null or is_local=0";
+        $sql = "select * from dns_records";
         $st = $db->prepare($sql);
         $st->bindParam(':apikey', $apikey, PDO::PARAM_STR);
         $st->execute();
