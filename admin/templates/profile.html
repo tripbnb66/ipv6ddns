@@ -11,7 +11,6 @@
 	{% if message is not empty %}
 	<div class="alert alert-danger" role="alert">{{ message }}</div>
 	{% endif %}
-	( <font color="red">*</font> {% trans "必填欄位" %})
 	<form method="post" action="profile1.php">
 		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
 		<div class="row form-group">
