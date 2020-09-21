@@ -37,7 +37,7 @@ $sidebar_item = 'menu2a';
 $message = $_SESSION['message'];
 unset($_SESSION['message']);
 
-$sock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+/*$sock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 @socket_connect($sock, "8.8.8.8", 53);
 @socket_getsockname($sock, $name); // $name passed by reference
 $ipv4 = $name;
@@ -45,7 +45,7 @@ $ipv4 = $name;
 $sock = socket_create(AF_INET6, SOCK_DGRAM, SOL_UDP);
 @socket_connect($sock, "2001:4860:4860::8888", 53);
 @socket_getsockname($sock, $name); // $name passed by reference
-$ipv6 = $name;
+$ipv6 = $name;*/
 
 echo $twig->render("hostname-add.html",
     [
