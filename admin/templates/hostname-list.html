@@ -16,25 +16,57 @@
 			以下是您建立的主機列表，還有對應的記錄資訊。<br>
 			您如果要修改或者刪除，請依據本頁面右側的功能進行操作。<br>
 		</p>
+		<div class="row">
+		<div class="col-2">PTR</div>
+		<div class="col-10">反解，查詢 IP 所對應的主機名稱</div>
+	</div>
+	<div class="row">
+		<div class="col-2">NS</div>
+		<div class="col-10">查詢管理領域名稱 (zone) 的伺服器主機名</div>
+	</div>
+	<div class="row">
+		<div class="col-2">SOA</div>
+		<div class="col-10">查詢管理領域名稱的伺服器管理資訊</div>
+	</div>
+	<div class="row">
+		<div class="col-2">A</div>
+		<div class="col-10">是指IPv4的位址</div>
+	</div>
+	<div class="row">
+		<div class="col-2">AAAA</div>
+		<div class="col-10">是指IPv6的位址</div>
+	</div>
+	<div class="row">
+		<div class="col-2">CNAME</div>
+		<div class="col-10">依據Wiki的說明，CNAME真實名稱記錄（英語：Canonical Name Record），即CNAME記錄，是域名系統（DNS）的一種記錄。 CNAME記錄用於將一個域名（同名）映射到另一個域名（真實名稱），域名解析伺服器遇到CNAME記錄會以映射到的目標重新開始查詢。 這對於需要在同一個IP位址上運行多個服務的情況來說非常方便。</div>
+	</div>
+	<div class="row">
+		<div class="col-2">TXT</div>
+		<div class="col-10">文字記錄，依據Wiki的說明，最初是為任意可讀的文字 DNS 記錄，後來通常存放一些驗證用的資訊。<br>
+			MX：依據Wiki的說明，郵件交換記錄 (MX record)是域名系統（DNS）中的一種資源記錄類型，用於指定負責處理發往收件人域名的郵件伺服器。MX記錄允許設定一個優先次序，當多個郵件伺服器可用時，會根據該值決定投遞郵件的伺服器。簡單郵件傳輸協定（SMTP）會根據MX記錄的值來決定郵件的路由過程。</div>
+	</div>
+
 	<table class="table table-striped">
-		<tr>
-			<td>{% trans "主機" %}</td>
-			<td>{% trans "網域" %}</td>
-			<td>{% trans "值" %}</td>
-			<td>{% trans "類型" %}</td>
-			<td>{% trans "優先順序" %}</td>
-			<td>{% trans "Server用" %}</td>
-			<td></td>
-			<td></td>
-		</tr>
+		<thead class="thead-dark">
+			<tr>
+				<th>{% trans "Zone" %}</th>
+				<th>{% trans "Host" %}</th>
+				<th>{% trans "Type" %}</th>
+				<th>{% trans "Data" %}</th>
+				<th>{% trans "TTL" %}</th>
+				<th>{% trans "MX Priority" %}</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
 		{% for item in items %}
 		<tr>
-			<td>{{item.hostname}}</td>
-			<td>{{item.domain}}</td>
-			<td>{{item.name}}</td>
-			<td>{{item.data_type|upper}}</td>
-			<td>{{item.priority}}</td>
-			<td>{% if item.is_local == 1 %}是{% else %}{% endif %}</td>
+			<td>{{item.zone}}</td>
+			<td>{{item.host}}</td>
+			<td>{{item.type|upper}}</td>
+			<td>{{item.data}}</td>
+			<td>{{item.ttl}}</td>
+			<td>{{item.mx_priority}}</td>
 			<td><a href="hostname-update.php?id={{item.id}}">{% trans "修改" %}</a></td>
 			<td><a href="hostname-delete.php?id={{item.id}}" onclick="return confirm('確定刪除？')">{% trans "刪除" %}</a></td>
 		</tr>

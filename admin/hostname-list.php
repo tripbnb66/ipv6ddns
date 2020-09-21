@@ -6,8 +6,20 @@ if (!$phpacl->is_admin()) {
     exit;
 }
 
-$sql = "select h.id,d.domain,h.hostname,i.name,i.data_type,i.priority,i.is_local from domain as d join hostname as h on h.domain_id=d.id join ip as i on i.hostname_id=h.id";
+$sql = "select count(*) as n from dns_records";
 $st = $db->prepare($sql);
+$st->execute();
+while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+    $total_num = $row['n'];
+}
+
+$begin = $phppage->get_begin();
+$phppage->set_total($total_num);
+
+$sql = "select * from dns_records order by created_at desc limit :offset,:rowcount";
+$st = $db->prepare($sql);
+$st->bindParam(':offset', $begin, PDO::PARAM_INT);
+$st->bindParam(':rowcount', $NUMBER_PER_PAGE, PDO::PARAM_INT);
 $st->execute();
 $items = [];
 while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
@@ -30,5 +42,6 @@ echo $twig->render("hostname-list.html",
         'menu_item' => $sidebar_item,
         'items' => $items,
         'pagnation' => $phppage->page_number(),
+        'p' => $p,
     ]
 );

@@ -1,5 +1,4 @@
 <?php
-//namespace TRIPNBN_BACKSTAGE;
 include_once __DIR__ . '/../settings.php';
 
 class PHPPage {

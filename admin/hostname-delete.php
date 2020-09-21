@@ -15,7 +15,7 @@ if (empty($id)) {
 }
 
 try {
-    $sql = "delete from ip where id=:id";
+    $sql = "delete from dns_records where id=:id";
     $st = $db->prepare($sql);
     $st->bindParam(':id', $id);
     $st->execute();
