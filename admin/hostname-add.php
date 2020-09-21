@@ -24,14 +24,6 @@ while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
     $items[] = $row;
 }
 
-$sql = "select * from domain";
-$st = $db->prepare($sql);
-$st->execute();
-$domains = [];
-while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-    $domains[] = $row;
-}
-
 $sidebar_menu = 'menu2';
 $sidebar_item = 'menu2a';
 $message = $_SESSION['message'];
@@ -57,7 +49,6 @@ echo $twig->render("hostname-add.html",
         'menu_item' => $sidebar_item,
         'is_admin' => isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : 0,
         'item' => $items[0],
-        'domains' => $domains,
         'message' => $message,
         'type' => $type,
         'ipv4' => $ipv4,
