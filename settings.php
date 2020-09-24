@@ -24,10 +24,18 @@ static $NUMBER_PER_PAGE = 50; // 每頁幾筆
 static $NUMBER_PAGINATION = 10; // 分頁顯示
 static $NUMBER_PAGINATION_OFFSET = 3; // 頁碼間距
 
-$db_host = "localhost";
-$db_name = "ipv6ddns";
-$db_user = "root";
-$db_pw = '';
+if (file_exists(__DIR__ . '/production')) {
+    $db_host = "localhost";
+    $db_name = "ipv6ddns";
+    $db_user = "root";
+    $db_pw = 'O$Fmu7WT@N';
+} else {
+    $db_host = "localhost";
+    $db_name = "ipv6ddns";
+    $db_user = "root";
+    $db_pw = '';
+}
+
 $debug_receiver = ['david9y9@gmail.com'];
 $smtp_username = '';
 $smtp_pasword = '';
