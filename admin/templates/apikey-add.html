@@ -13,11 +13,8 @@
 	{% endif %}
 	<p>
 		API Key由系統自動亂數產生，管理者可以手動修改，長度沒有限制。<br>
-		每次您進入這個頁面時或者更新這個頁面時，系統都會自動隨機產生一個新的 API金鑰 給您。<br>
 		API金鑰 是用來提供給DDNS client 連線到DDNS server的金鑰。使用API金鑰就可以取代帳號跟密碼，透過API金鑰 做為登入使用。<br>
-		API金鑰是提供給 DDNS Client使用的，請不要將DDNS Server的帳號給密碼提供別人，也不需要提供給DDNS Client，因為DDNS Client沒有輸入帳號跟密碼的地方。<br>
 		如果其他安裝DDNS client的電腦需要將最新的IP位址回傳給DDNS Server，只要將此處產生的 API金鑰 複製之後提供給DDNS Client作為登入使用。<br>
-		如果您覺得 API金鑰 太長不容易使用，您也可以自訂 API金鑰，只要將下方輸入筐的API金鑰 換成您自己輸入的字串即可，不過我們強烈建議您不要這樣做，因為您提供的字串通常都會有特定規則，較容易被猜到。<br>
 	</p>
 	<form method="post" action="apikey-add1.php">
 		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
