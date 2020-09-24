@@ -48,11 +48,11 @@
 		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
 		<div class="row form-group">
 			<label class="col-2"><font color=red>*</font>{% trans "Zone" %}</label>
-			<input class="col-10 form-control" type="text" name="zone">
+			<input class="col-10 form-control" type="text" name="zone" required>
 		</div>
 		<div class="row form-group">
 			<label class="col-2"><font color=red>*</font>{% trans "Host" %}</label>
-			<input class="col-10 form-control" type="text" name="host">
+			<input class="col-10 form-control" type="text" name="host" required>
 		</div>
 		<div class="row form-group">
 			<label class="col-2"><font color=red>*</font>{% trans "Type" %}</label>
