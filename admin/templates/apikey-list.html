@@ -24,7 +24,7 @@
 		{% for item in items %}
 		<tr>
 			<td>{{item.apikey}}</td>
-			<td><a href="domain-delete.php?id={{item.id}}" onclick="return confirm('確定刪除？')">{% trans "刪除" %}</a></td>
+			<td><a href="apikey-delete.php?id={{item.id}}" onclick="return confirm('確定刪除？')">{% trans "刪除" %}</a></td>
 		</tr>
 		{% endfor %}
 	</table>

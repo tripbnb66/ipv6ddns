@@ -11,7 +11,7 @@
 	{% if message is not empty %}
 	<div class="alert alert-danger" role="alert">{{ message }}</div>
 	{% endif %}
-	<div class="row">
+		<div class="row">
 		<div class="col-2">PTR</div>
 		<div class="col-10">反解，查詢 IP 所對應的主機名稱</div>
 	</div>
@@ -25,21 +25,25 @@
 	</div>
 	<div class="row">
 		<div class="col-2">A</div>
-		<div class="col-10">是指IPv4的位址</div>
+		<div class="col-10">IPv4的位址</div>
 	</div>
 	<div class="row">
 		<div class="col-2">AAAA</div>
-		<div class="col-10">是指IPv6的位址</div>
+		<div class="col-10">IPv6的位址</div>
 	</div>
 	<div class="row">
 		<div class="col-2">CNAME</div>
-		<div class="col-10">依據Wiki的說明，CNAME真實名稱記錄（英語：Canonical Name Record），即CNAME記錄，是域名系統（DNS）的一種記錄。 CNAME記錄用於將一個域名（同名）映射到另一個域名（真實名稱），域名解析伺服器遇到CNAME記錄會以映射到的目標重新開始查詢。 這對於需要在同一個IP位址上運行多個服務的情況來說非常方便。</div>
+		<div class="col-10">CNAME記錄用於將一個域名（同名）映射到另一個域名（真實名稱），域名解析伺服器遇到CNAME記錄會以映射到的目標重新開始查詢。 這對於需要在同一個IP位址上運行多個服務的情況來說非常方便。</div>
 	</div>
 	<div class="row">
 		<div class="col-2">TXT</div>
-		<div class="col-10">文字記錄，依據Wiki的說明，最初是為任意可讀的文字 DNS 記錄，後來通常存放一些驗證用的資訊。<br>
-			MX：依據Wiki的說明，郵件交換記錄 (MX record)是域名系統（DNS）中的一種資源記錄類型，用於指定負責處理發往收件人域名的郵件伺服器。MX記錄允許設定一個優先次序，當多個郵件伺服器可用時，會根據該值決定投遞郵件的伺服器。簡單郵件傳輸協定（SMTP）會根據MX記錄的值來決定郵件的路由過程。</div>
+		<div class="col-10">文字記錄，通常存放一些驗證用的資訊。</div>
 	</div>
+		<div class="row">
+		<div class="col-2">MX</div>
+		<div class="col-10">郵件交換記錄 (MX record)是域名系統（DNS）中的一種資源記錄類型，用於指定負責處理發往收件人域名的郵件伺服器。MX記錄允許設定一個優先次序，當多個郵件伺服器可用時，會根據該值決定投遞郵件的伺服器。簡單郵件傳輸協定（SMTP）會根據MX記錄的值來決定郵件的路由過程。</div>
+	</div>
+	
 	<div class="row">
 		<div class="col-2"></div>
 		<div class="col-10"></div>

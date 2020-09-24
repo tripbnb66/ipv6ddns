@@ -10,7 +10,7 @@ $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if (empty($id)) {
     $_SESSION['message'] = _("編號不可以為空");
-    header("Location: domain-list.php");
+    header("Location: hostname-list.php");
     exit;
 }
 
