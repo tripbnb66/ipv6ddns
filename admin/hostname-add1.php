@@ -32,7 +32,17 @@ try {
     $expire = 86400;
     $minimum = 3600;
     //$retry = 15;
-    $serial = date("Ymdhi");
+    //$serial = date("Ymdhi");
+    $sql = "select max(serial) as serial from dns_records";
+    $st = $db->prepare($sql);
+    $st->execute();
+    $rows = $st->fetchAll(PDO::FETCH_ASSOC);
+    if (empty($rows[0]['serial'])) {
+        $serial = 2020091603;
+    } else {
+        $serial = intval($rows[0]['serial']) + 1;
+    }
+
     //$resp_person = "admin";
     //$primary_ns = "dns.google";
 

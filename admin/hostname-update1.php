@@ -32,11 +32,20 @@ try {
     $expire = 86400;
     $minimum = 3600;
     //$retry = 15;
-    $serial = date("Ymdhi");
+    //$serial = date("Ymdhi");
     //$resp_person = "admin";
     //$primary_ns = "dns.google";
+    $sql = "select max(serial) as serial from dns_records";
+    $st = $db->prepare($sql);
+    $st->execute();
+    $rows = $st->fetchAll(PDO::FETCH_ASSOC);
+    if (empty($rows[0]['serial'])) {
+        $serial = 2020091603;
+    } else {
+        $serial = intval($rows[0]['serial']) + 1;
+    }
 
-    $sql = "update dns_records set zone=:zone,host=:host,type=:type,data=:data, ttl=:ttl, mx_priority=:mx_priority where id=:id";
+    $sql = "update dns_records set zone=:zone,host=:host,type=:type,data=:data, ttl=:ttl, mx_priority=:mx_priority, serial=:serial where id=:id";
     $st = $db->prepare($sql);
     $st->bindParam(':zone', $zone, PDO::PARAM_STR);
     $st->bindParam(':host', $host, PDO::PARAM_STR);
@@ -44,6 +53,7 @@ try {
     $st->bindParam(':data', $data, PDO::PARAM_STR);
     $st->bindParam(':ttl', $ttl, PDO::PARAM_STR);
     $st->bindParam(':mx_priority', $mx_priority, PDO::PARAM_STR);
+    $st->bindParam(':serial', $serial, PDO::PARAM_STR);
     $st->bindParam(':id', $id, PDO::PARAM_STR);
     $st->execute();
 
