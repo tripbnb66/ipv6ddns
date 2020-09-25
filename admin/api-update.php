@@ -75,14 +75,14 @@ try {
                 $st2->execute();
                 while ($row2 = $st2->fetch(PDO::FETCH_ASSOC)) {
                     if ($row2['type'] == 'A' && !empty($ipv4[0])) {
-                        $sql = "update dns_records set data=:data and type='A' where id=:id";
+                        $sql = "update dns_records set data=:data where id=:id and type='A'";
                         $st3 = $db->prepare($sql);
                         $st3->bindParam(':id', $id, PDO::PARAM_INT);
                         $st3->bindParam(':data', $ipv4[0], PDO::PARAM_STR);
                         $st3->execute();
                         error_log("update id=$id,ipv4={$ipv4[0]} ok");
                     } else if ($row2['type'] == 'AAAA' && !empty($ipv6[0])) {
-                        $sql = "update dns_records set data=:data and type='AAAA' where id=:id";
+                        $sql = "update dns_records set data=:data where id=:id and type='AAAA' ";
                         $st3 = $db->prepare($sql);
                         $st3->bindParam(':id', $id, PDO::PARAM_INT);
                         $st3->bindParam(':data', $ipv6[0], PDO::PARAM_STR);
