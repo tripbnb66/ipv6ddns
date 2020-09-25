@@ -78,14 +78,14 @@ try {
                         $sql = "update dns_records set data=:data and type='A' where id=:id";
                         $st3 = $db->prepare($sql);
                         $st3->bindParam(':id', $id, PDO::PARAM_INT);
-                        $st3->bindParam(':name', $ipv4[0], PDO::PARAM_STR);
+                        $st3->bindParam(':data', $ipv4[0], PDO::PARAM_STR);
                         $st3->execute();
                         error_log("update id=$id,ipv4={$ipv4[0]} ok");
                     } else if ($row2['type'] == 'AAAA' && !empty($ipv6[0])) {
                         $sql = "update dns_records set data=:data and type='AAAA' where id=:id";
                         $st3 = $db->prepare($sql);
                         $st3->bindParam(':id', $id, PDO::PARAM_INT);
-                        $st3->bindParam(':name', $ipv6[0], PDO::PARAM_STR);
+                        $st3->bindParam(':data', $ipv6[0], PDO::PARAM_STR);
                         $st3->execute();
                         error_log("update id=$id,ipv6={$ipv6[0]} ok");
                     }
