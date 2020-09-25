@@ -39,7 +39,7 @@ listen = 127.0.0.1:9000
 
 ## 安裝BIND編譯過程中所需套件
 * sudo yum install -y git wget curl
-* sudo yum install -y gcc python3-pip libcap-devel libuv make openssl-devel mysql-devel bind-utils  libuv-devel
+* sudo yum install -y gcc python3-pip libcap-devel libuv make openssl-devel mysql-devel bind-utils  libuv-devel bind-chroot
 * sudo pip3 install ply
 * sudo yum install epel-release
 
@@ -555,5 +555,6 @@ ns1.sparkplugbb.net has address 10.10.10.10
 
 ## 備註
 * [%zone% 是錯誤的, 應該改為 $zone$](https://forums.gentoo.org/viewtopic-t-829635-start-0.html)
+* [完整的mysql+bind9+dlz](https://www.jianshu.com/p/f51481a19dbc)
 * [設定BIND+DLZ](https://wintelais.wordpress.com/2015/06/17/how-to-install-bind-dlz-on-linux/)
 * [zonomi](https://zonomi.com/)	

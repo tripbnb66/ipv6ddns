@@ -33,8 +33,8 @@ try {
     $minimum = 3600;
     $retry = 15;
     $serial = date("Ymdhi");
-    $resp_person = "admin";
-    $primary_ns = "dns.google";
+    //$resp_person = "admin";
+    //$primary_ns = "dns.google";
 
     $sql = "update dns_records set zone=:zone,host=:host,type=:type,data=:data, ttl=:ttl, mx_priority=:mx_priority where id=:id";
     $st = $db->prepare($sql);
