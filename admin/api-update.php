@@ -92,7 +92,12 @@ try {
                 }
             }
         }
-        $ret = ['message' => _("IP位址更新成功"), 'success' => 1];
+        $sql = "select * from dns_records where (type='A' or type='AAAA' ) order by `type` desc";
+        $st4 = $db->prepare($sql);
+        $st4->bindParam(':apikey', $apikey, PDO::PARAM_STR);
+        $st4->execute();
+        $data = $st4->fetchAll(PDO::FETCH_ASSOC);
+        $ret = ['message' => $data, 'success' => 1];
         //error_log(print_r($ret, 1));
         header('Content-Type: application/json');
         echo json_encode($ret, JSON_UNESCAPED_UNICODE);
