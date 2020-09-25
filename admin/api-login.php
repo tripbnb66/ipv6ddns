@@ -40,7 +40,7 @@ try {
     $st->execute();
     $rows = $st->fetchAll(PDO::FETCH_ASSOC);
     if ($rows[0]['n'] == 1) {
-        $sql = "select * from dns_records";
+        $sql = "select * from dns_records where (type='A' or type='AAAA' ) order by `type` desc";
         $st = $db->prepare($sql);
         $st->bindParam(':apikey', $apikey, PDO::PARAM_STR);
         $st->execute();
