@@ -31,7 +31,7 @@ try {
     $refresh = 600;
     $expire = 86400;
     $minimum = 3600;
-    $retry = 15;
+    //$retry = 15;
     $serial = date("Ymdhi");
     //$resp_person = "admin";
     //$primary_ns = "dns.google";
