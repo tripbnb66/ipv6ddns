@@ -1,13 +1,10 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
-if (!$phpacl->is_admin()) {
+if (!$phpacl->is_login()) {
     header("Location: login.php");
     exit;
 }
-
-$sidebar_menu = 'menu1';
-$sidebar_item = 'menu1a';
 
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -25,5 +22,6 @@ echo $twig->render('index.html', [
     'menu' => $sidebar_menu,
     'menu_item' => $sidebar_item,
     'is_admin' => isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : 0,
+    'is_login' => isset($_SESSION['id']) ? '1' : '0',
 ]
 );

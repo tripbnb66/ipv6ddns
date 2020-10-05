@@ -1,6 +1,11 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
+if (!$phpacl->is_login()) {
+    header("Location: login.php");
+    exit;
+}
+
 $pw = filter_input(INPUT_POST, 'pw');
 $csrf_token = filter_input(INPUT_POST, 'csrf_token');
 
@@ -28,7 +33,7 @@ try {
     $sql = "update users set pw=:pw where id=:id";
     $st = $db->prepare($sql);
     $st->bindParam(':pw', $encpw, PDO::PARAM_STR);
-    $st->bindParam(':id', $_SESSION['user_id'], PDO::PARAM_STR);
+    $st->bindParam(':id', $_SESSION['id'], PDO::PARAM_STR);
 
     $st->execute();
     $_SESSION['message'] = _('更新完成');

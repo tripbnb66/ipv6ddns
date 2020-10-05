@@ -43,5 +43,6 @@ echo $twig->render("hostname-list.html",
         'items' => $items,
         'pagnation' => $phppage->page_number(),
         'p' => $p,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

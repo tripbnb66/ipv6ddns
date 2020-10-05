@@ -1,6 +1,11 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
+if (!$phpacl->is_login()) {
+    header("Location: login.php");
+    exit;
+}
+
 if (!$phpacl->is_admin()) {
     header("Location: no_permission.php");
     exit;
@@ -17,7 +22,7 @@ if (empty($id)) {
 try {
     $db->beginTransaction();
 
-    $sql = "select * from merchant where id=:id";
+    $sql = "select * from users where id=:id";
     $st = $db->prepare($sql);
     $st->bindParam(':id', $id);
     $st->execute();
@@ -33,20 +38,16 @@ try {
         exit;
     }
 
-    $sql = "update merchant set is_deleted=1 where id=:id";
+    $sql = "delete from users where id=:id";
     $st = $db->prepare($sql);
     $st->bindParam(':id', $id);
     $st->execute();
     $db->commit();
 
-    $phplog->db("user", "停用帳號 firstname={$firstname}, lastname={$lastname},email={$email}, id={$id}");
-    $subject = "停用帳號 firstname={$firstname}, lastname={$lastname},email={$email}, id={$id}";
-    $body = "停用帳號 firstname={$firstname}, lastname={$lastname},email={$email}, id={$id}";
-    $phpmail->send($admin_email, $MAIL_TO_MANAGER, $subject, $body);
-    $_SESSION['message'] = _("停用成功");
+    $phplog->db("users", "刪除帳號 {$email}, id={$id}");
+    $_SESSION['message'] = _("刪除成功");
 
 } catch (PDOException $e) {
-    log_exception(__FILE__, $e);
     error_log($e->getMessage());
     $_SESSION['message'] = $e->getMessage();
     $db->rollBack();

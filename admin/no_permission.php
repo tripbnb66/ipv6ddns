@@ -15,5 +15,6 @@ echo $twig->render("no_permission.html",
         'show_nav' => 0,
         'message' => $message,
         'is_admin' => $_SESSION['is_admin'],
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

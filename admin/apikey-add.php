@@ -24,5 +24,6 @@ echo $twig->render("apikey-add.html",
         'is_admin' => isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : 0,
         'key' => $key,
         'message' => $message,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

@@ -27,7 +27,7 @@
     <a class="navbar-brand" href="index.php">
       <img src="/image/LOGO-header.png">
     </a>
-    {% if is_admin %}
+    {% if is_login %}
       <a href="logout.php">{% trans "登出" %}</a></a>
       {% else %}
       <a href="login.php">{% trans "登入" %}</a>
@@ -36,14 +36,15 @@
   </nav>
     {% endblock %}
 
+
 <div id="wrapper">
-{% if is_admin %}
+{% if is_login %}
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
-
+      {% if is_admin == 1 %}
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu2" aria-expanded="true" aria-controls="menu2">
           <span>{% trans "主機" %}</span>
@@ -56,6 +57,18 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu1" aria-expanded="true" aria-controls="menu1">
+          <span>{% trans "帳號" %}</span>
+        </a>
+        <div id="menu1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a id="menu1a" class="collapse-item" href="user_add.php">{% trans "新增帳號" %}</a>
+          	<a id="menu1b" class="collapse-item" href="user_list.php">{% trans "帳號列表" %}</a>
+          </div>
+        </div>
+      </li>
+      
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu3" aria-expanded="true" aria-controls="menu3">
           <span>{% trans "金鑰" %}</span>
         </a>
@@ -66,6 +79,7 @@
           </div>
         </div>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu4" aria-expanded="true" aria-controls="menu4">
           <span>{% trans "其他" %}</span>
@@ -79,7 +93,7 @@
 
     </ul>
     <!-- End of Sidebar -->
-       {% endif %}
+  {% endif %}
         <!-- Begin Page Content -->
         <div class="container-fluid table-responsive">
           <!-- Content Row -->
@@ -89,6 +103,7 @@
         <!-- /.container-fluid -->
 
   </div>
+
   <!-- End of Page Wrapper -->
 {% include 'footer-thin.html' only %} 
 	<script src="/js/popper.min.js"></script>

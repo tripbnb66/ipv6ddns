@@ -14,7 +14,7 @@
 	<form method="post" action="user_add1.php">
 		<input type="hidden" name="csrf_token" value="{{csrf_token}}">
 		<div class="row form-group">
-			<label class="col-2"><font color=red>*</font>{% trans "電子郵件" %}</label>
+			<label class="col-2"><font color=red>*</font>{% trans "帳號" %}</label>
 			<input type="text" class="col-10 form-control" name="email" required>
 		</div>
 		<div class="row form-group">
@@ -27,6 +27,15 @@
 		<div class="row form-group">
 			<label class="col-2"><font color=red>*</font>{% trans "確認密碼" %}</label>
 			<td><input type="password" name="pw2" class="form-control col-10" required></td>
+		</div>
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "身份" %}</label>
+			<td>
+				<select name="is_admin" required>
+					<option value="0">一般使用者</option>
+					<option value="1">管理者</option>
+				</select>
+			</td>
 		</div>
 	<div class="row">
 		<input type="submit" class="btn btn-primary btn-sm" value="{% trans "送出" %}"> &nbsp;

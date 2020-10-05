@@ -1,12 +1,8 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
-if (!$phpacl->is_admin()) {
-    header("Location: no_permission.php");
-    exit;
-}
-if (!$phpacl->is_admin()) {
-    header("Location: no_permission.php");
+if (!$phpacl->is_login()) {
+    header("Location: login.php");
     exit;
 }
 
@@ -33,6 +29,7 @@ echo $twig->render("profile.html",
         'menu' => $sidebar_menu,
         'menu_item' => $sidebar_item,
         'is_admin' => isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : 0,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
         'item' => $items[0],
         'message' => $message,
     ]

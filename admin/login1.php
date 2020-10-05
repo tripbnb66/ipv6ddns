@@ -1,6 +1,11 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
+if ($phpacl->is_login()) {
+    header("Location: index.php");
+    exit;
+}
+
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 $pw = filter_input(INPUT_POST, 'pw');
 $csrf_token = filter_input(INPUT_POST, 'csrf_token');
@@ -45,7 +50,7 @@ try {
             // regenerate session on successful login
             session_regenerate_id();
             $_SESSION['id'] = $row['id'];
-            $_SESSION['is_admin'] = 1;
+            $_SESSION['is_admin'] = $row['is_admin'];
             $_SESSION['message'] = _("登入成功");
             $phplog->login($email);
             header("Location: index.php");

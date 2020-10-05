@@ -32,5 +32,6 @@ echo $twig->render("hostname-update.html",
         'is_admin' => $_SESSION['is_admin'],
         'rows' => $rows,
         'id' => $id,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

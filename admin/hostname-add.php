@@ -53,5 +53,6 @@ echo $twig->render("hostname-add.html",
         'type' => $type,
         'ipv4' => $ipv4,
         'ipv6' => $ipv6,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

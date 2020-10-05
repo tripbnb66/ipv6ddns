@@ -16,4 +16,12 @@ class PHPACL {
         }
     }
 
+    function is_login() {
+        if (isset($_SESSION['is_admin']) && !empty($_SESSION['id'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -20,7 +20,7 @@ echo $twig->render("message.html",
         'is_user' => $phpacl->is_user() ? '1' : '0',
         'message' => $message,
         'avatar' => empty($_SESSION['avatar']) ? '/image/avator-default.png' : $_SESSION['avatar'],
-
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );
 ?>

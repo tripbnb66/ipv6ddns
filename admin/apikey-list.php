@@ -29,5 +29,6 @@ echo $twig->render("apikey-list.html",
         'menu' => $sidebar_menu,
         'menu_item' => $sidebar_item,
         'items' => $items,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

@@ -30,6 +30,15 @@
 			<label class="col-2">{% trans "確認密碼" %}</label>
 			<td><input type="password" name="pw2" class="form-control col-10"></td>
 		</div>
+		<div class="row form-group">
+			<label class="col-2"><font color=red>*</font>{% trans "身份" %}</label>
+			<td>
+				<select name="is_admin" required>
+					<option value="0" {%if items[0].is_admin == 0%}selected{%endif%}>一般使用者</option>
+					<option value="1" {%if items[0].is_admin == 1%}selected{%endif%}>管理者</option>
+				</select>
+			</td>
+		</div>
 		<input type="submit" class="btn btn-primary btn-sm" value="{% trans "送出" %}"> &nbsp;
 		<input type="reset" class="btn btn-secondary btn-sm" value="{% trans '取消'%}">
 </form>

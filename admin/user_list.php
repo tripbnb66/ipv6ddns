@@ -1,6 +1,11 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
+if (!$phpacl->is_login()) {
+    header("Location: login.php");
+    exit;
+}
+
 if (!$phpacl->is_admin()) {
     header("Location: no_permission.php");
     exit;
@@ -27,7 +32,7 @@ while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
 }
 
 $sidebar_menu = 'menu1';
-$sidebar_item = 'menu1a';
+$sidebar_item = 'menu1b';
 $message = $_SESSION['message'];
 unset($_SESSION['message']);
 
@@ -42,5 +47,6 @@ echo $twig->render("user_list.html",
         'menu_item' => $sidebar_item,
         'items' => $items,
         'pagnation' => $phppage->page_number(),
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

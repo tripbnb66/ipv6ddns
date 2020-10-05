@@ -1,34 +1,22 @@
 <?php
-die("function disabled");
 include_once __DIR__ . '/../settings.php';
 
-if (!$phpacl->is_user()) {
+if (!$phpacl->is_login()) {
     header("Location: login.php");
     exit;
 }
+
 if (!$phpacl->is_admin()) {
     header("Location: no_permission.php");
     exit;
-}
-if (!$phpacl->check_permission()) {
-    header("Location: no_permission.php");
-    exit;
-}
-
-$sql = "select * from countries order by callingcode asc";
-$st = $db->prepare($sql);
-$st->execute();
-$countries = [];
-while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-    $countries[$row['alpha2']] = $row;
 }
 
 $sql = "select * from role";
 $st = $db->query($sql);
 $role = $st->fetchAll(PDO::FETCH_ASSOC);
 
-$sidebar_menu = 'menu5';
-$sidebar_item = 'menu5a';
+$sidebar_menu = 'menu1';
+$sidebar_item = 'menu1a';
 $message = $_SESSION['message'];
 unset($_SESSION['message']);
 
@@ -45,7 +33,6 @@ echo $twig->render("user_add.html",
         'menu_item' => $sidebar_item,
         'role' => $role,
         'is_admin' => $_SESSION['is_admin'],
-        'is_user' => $phpacl->is_user() ? '1' : '0',
-        'countries' => $countries,
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );

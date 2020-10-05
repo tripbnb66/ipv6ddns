@@ -22,6 +22,7 @@ echo $twig->render(
         't' => $VERSION,
         'message' => $message,
         'is_admin' => $phpacl->is_admin() ? '1' : '0',
+        'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]
 );
 
