@@ -11,10 +11,6 @@ if (!$phpacl->is_admin()) {
     exit;
 }
 
-$sql = "select * from role";
-$st = $db->query($sql);
-$role = $st->fetchAll(PDO::FETCH_ASSOC);
-
 $sidebar_menu = 'menu1';
 $sidebar_item = 'menu1a';
 $message = $_SESSION['message'];
@@ -31,7 +27,6 @@ echo $twig->render("user_add.html",
         'message' => $message,
         'menu' => $sidebar_menu,
         'menu_item' => $sidebar_item,
-        'role' => $role,
         'is_admin' => $_SESSION['is_admin'],
         'is_login' => isset($_SESSION['id']) ? '1' : '0',
     ]

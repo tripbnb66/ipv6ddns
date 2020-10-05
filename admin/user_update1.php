@@ -57,9 +57,6 @@ try {
     $st->bindParam(':id', $id, PDO::PARAM_INT);
     $st->execute();
 
-    //$subject = "update name={$name},role={$role},id={$id}";
-    //$body = "update name={$name},role={$role},id={$id}";
-    //$phpmail->send($admin_email,$MAIL_TO_MANAGER,$subject,$body);
     $phplog->db("user", "update users id={$id}");
     $_SESSION['message'] = _("更新成功");
     $db->commit();
