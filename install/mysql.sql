@@ -405,6 +405,7 @@ CREATE TABLE `users` (
   `verify_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_verified` tinyint(1) DEFAULT '0',
   `is_deleted` tinyint unsigned DEFAULT '0',
+  `is_admin` tinyint unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `firstname` (`firstname`),
