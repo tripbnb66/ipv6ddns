@@ -67,7 +67,7 @@
           </div>
         </div>
       </li>
-      
+      {% if false %}
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu3" aria-expanded="true" aria-controls="menu3">
           <span>{% trans "金鑰" %}</span>
@@ -80,17 +80,19 @@
         </div>
       </li>
       {% endif %}
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu4" aria-expanded="true" aria-controls="menu4">
           <span>{% trans "其他" %}</span>
         </a>
         <div id="menu4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          	<a id="menu4a" class="collapse-item" href="profile.php">{% trans "變更密碼" %}</a>
+        	<a id="menu4a" class="collapse-item" href="profile.php">{% trans "變更密碼" %}</a>
+        	<a id="menu4b" class="collapse-item" href="server.pdf" target=_blank>{% trans "Server使用說明" %}</a>
+          	<a id="menu4c" class="collapse-item" href="client.pdf" target=_blank>{% trans "Client使用說明" %}</a>
           </div>
         </div>
-      </li>    
-
+       </li> 
     </ul>
     <!-- End of Sidebar -->
   {% endif %}

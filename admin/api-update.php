@@ -1,20 +1,26 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
-$apikey = filter_input(INPUT_POST, 'apikey', FILTER_SANITIZE_STRING);
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+$pw = filter_input(INPUT_POST, 'pw', FILTER_SANITIZE_STRING);
 $idList = filter_input(INPUT_POST, 'idList', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $ipv4 = filter_input(INPUT_POST, 'ipv4', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $ipv6 = filter_input(INPUT_POST, 'ipv6', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
 //error_log(print_r($_POST, 1));
 
-if (empty($apikey)) {
-    $ret = ['message' => _("無效的API KEY") . " apikey=" . $apikey, 'success' => 0];
+if (empty($email)) {
+    $ret = ['message' => _("無效的帳號"), 'success' => 0];
     error_log(print_r($ret, 1));
     return json_encode($ret, JSON_UNESCAPED_UNICODE);
     exit;
 }
-
+if (empty($pw)) {
+    $ret = ['message' => _("無效的密碼"), 'success' => 0];
+    error_log(print_r($ret, 1));
+    return json_encode($ret, JSON_UNESCAPED_UNICODE);
+    exit;
+}
 if (empty($idList)) {
     $ret = ['message' => _("沒有選擇要更新的hostname"), 'success' => 0];
     error_log(print_r($ret, 1));
@@ -60,12 +66,12 @@ try {
     }
 
     $n = 0;
-    $sql = "select count(*) as n from apikey where apikey=:apikey";
+    $sql = "select *  from users where email=:email";
     $st = $db->prepare($sql);
-    $st->bindParam(':apikey', $apikey, PDO::PARAM_STR);
+    $st->bindParam(':email', $email, PDO::PARAM_STR);
     $st->execute();
     $rows = $st->fetchAll(PDO::FETCH_ASSOC);
-    if ($rows[0]['n'] == 1) {
+    if (password_verify($pw, $rows[0]['pw'])) {
         foreach ($idList as $id) {
             if (!empty($id)) {
                 error_log("update id=$id, ipv4={$ipv4[0]}, ipv6={$ipv6[0]}");
@@ -94,7 +100,6 @@ try {
         }
         $sql = "select * from dns_records where (type='A' or type='AAAA' ) order by `type` desc";
         $st4 = $db->prepare($sql);
-        $st4->bindParam(':apikey', $apikey, PDO::PARAM_STR);
         $st4->execute();
         $data = $st4->fetchAll(PDO::FETCH_ASSOC);
         $ret = ['message' => $data, 'success' => 1];
@@ -104,7 +109,7 @@ try {
         error_log(print_r($ret, 1));
         exit;
     } else {
-        $ret = ['message' => _("尚未有建立Domain，請先在DDNS平台上建立Domain"), 'success' => 0];
+        $ret = ['message' => _("帳號密碼驗證失敗，請重新輸入"), 'success' => 0];
         error_log(print_r($ret, 1));
         header('Content-Type: application/json');
         echo json_encode($ret, JSON_UNESCAPED_UNICODE);

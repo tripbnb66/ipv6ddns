@@ -1,10 +1,17 @@
 <?php
 include_once __DIR__ . '/../settings.php';
 
-$apikey = filter_input(INPUT_POST, 'apikey', FILTER_SANITIZE_STRING);
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+$pw = filter_input(INPUT_POST, 'pw', FILTER_SANITIZE_STRING);
 
-if (empty($apikey)) {
-    $ret = ['message' => _("無效的API KEY") . " apikey=" . $apikey, 'success' => 0];
+if (empty($email)) {
+    $ret = ['message' => _("無效的帳號"), 'success' => 0];
+    error_log(print_r($ret, 1));
+    return json_encode($ret);
+    exit;
+}
+if (empty($pw)) {
+    $ret = ['message' => _("無效的密碼"), 'success' => 0];
     error_log(print_r($ret, 1));
     return json_encode($ret);
     exit;
@@ -34,15 +41,14 @@ try {
     }
 
     $n = 0;
-    $sql = "select count(*) as n from apikey where apikey=:apikey";
+    $sql = "select * from users where email=:email";
     $st = $db->prepare($sql);
-    $st->bindParam(':apikey', $apikey, PDO::PARAM_STR);
+    $st->bindParam(':email', $email, PDO::PARAM_STR);
     $st->execute();
     $rows = $st->fetchAll(PDO::FETCH_ASSOC);
-    if ($rows[0]['n'] == 1) {
+    if (password_verify($pw, $rows[0]['pw'])) {
         $sql = "select * from dns_records where (type='A' or type='AAAA' ) order by `type` desc";
         $st = $db->prepare($sql);
-        $st->bindParam(':apikey', $apikey, PDO::PARAM_STR);
         $st->execute();
         $data = $st->fetchAll(PDO::FETCH_ASSOC);
         $ret = ['message' => $data, 'success' => 1];
@@ -52,11 +58,10 @@ try {
         //error_log(print_r($ret, 1));
         exit;
     } else {
-        $ret = ['message' => _("無效的 API KEY"), 'success' => 0];
+        $ret = ['message' => _("無效的密碼"), 'success' => 0];
         error_log(print_r($ret, 1));
         header('Content-Type: application/json');
         echo json_encode($ret, JSON_UNESCAPED_UNICODE);
-
         exit;
     }
 
