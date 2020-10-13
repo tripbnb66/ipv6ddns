@@ -28,7 +28,7 @@ if (file_exists(__DIR__ . '/production')) {
     $db_host = "localhost";
     $db_name = "ipv6ddns";
     $db_user = "root";
-    $db_pw = 'O$Fmu7WT@N';
+    $db_pw = '@ipv6Ddns123';
 } else {
     $db_host = "localhost";
     $db_name = "ipv6ddns";
