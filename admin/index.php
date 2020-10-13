@@ -2,7 +2,7 @@
 include_once __DIR__ . '/../settings.php';
 
 if (!$phpacl->is_login()) {
-    header("Location: login.php");
+    header("Location: /admin/login.php");
     exit;
 }
 

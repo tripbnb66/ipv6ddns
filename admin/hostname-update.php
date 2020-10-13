@@ -15,8 +15,8 @@ $st->execute();
 $rows = $st->fetchAll(PDO::FETCH_ASSOC);
 
 //print_r($ip);
-$sidebar_menu = 'menu1';
-$sidebar_item = 'menu1f';
+$sidebar_menu = 'menu2';
+$sidebar_item = 'menu2b';
 $message = $_SESSION['message'];
 unset($_SESSION['message']);
 
