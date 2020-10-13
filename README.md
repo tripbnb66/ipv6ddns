@@ -30,7 +30,7 @@ php -r "unlink('composer-setup.php');"
 * sudo systemctl start nginx
 * sudo grep 'temporary password' /var/log/mysqld.log
 * mysql -uroot -p
-* mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'O$Fmu7WT@N';
+* mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '@ipv6Ddns123';
 * mysql> flush privileges;
 * sudo vim /etc/php-fpm.d/www.conf
 ```
@@ -74,9 +74,9 @@ $ttl 86400
 
 ### 建立 mysql連線帳號
 * mysql -uroot -p
-* mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'O$Fmu7WT@N';
-* mysql> create user 'ipv6ddns'@'%' identified with mysql_native_password by 'O$Fmu7WT@N';
-* mysql> alter user 'ipv6ddns'@'%' identified with mysql_native_password by 'O$Fmu7WT@N';
+* mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '@ipv6Ddns123';
+* mysql> create user 'ipv6ddns'@'%' identified with mysql_native_password by '@ipv6Ddns123';
+* mysql> alter user 'ipv6ddns'@'%' identified with mysql_native_password by '@ipv6Ddns123';
 * mysql> grant all privileges on ipv6ddns.* to 'ipv6ddns'@'%';
 * mysql> flush privileges;
 * mysql> create database ipv6ddns CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -93,7 +93,7 @@ default_authentication_plugin=mysql_native_password
 ```
 dlz "Mysql zone" {
    database "mysql
-   {host=localhost dbname=iv6ddns user=root pass=O$Fmu7WT@N ssl=false}
+   {host=localhost dbname=iv6ddns user=root pass=@ipv6Ddns123 ssl=false}
    {select zone from dns_records where zone = '$zone$'}
    {select ttl, type, mx_priority, case when lower(type)='txt' then concat('\"', data, '\"')
         when lower(type) = 'soa' then concat_ws(' ', data, resp_person, serial, refresh, retry, expire, minimum)
